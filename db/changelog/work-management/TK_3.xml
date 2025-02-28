@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <!-- Create Enum Type for Role -->
+    <changeSet id="TK_3_Create_Role_Enum" author="Khushbu">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="0">
+                    SELECT COUNT(*) FROM pg_type WHERE typename = 'role_enum';
+                </sqlCheck>
+            </not>
+        </preConditions>
+
+        <sql>
+            CREATE TYPE role_enum AS ENUM ('OWNER', 'MEMBER');
+        </sql>
+
+        <rollback>
+            <sql>
+                DROP TYPE IF EXISTS role_enum;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <!-- Create User_Workspace Table -->
+    <changeSet id="TK_3_Create_User_Workspace_Table" author="Khushbu">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user_workspace"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="user_workspace">
+            <column name="workspace_id" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+            <column name="owner_id" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+            <column name="role" type="role_enum">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <!-- Add Foreign Keys -->
+        <addForeignKeyConstraint
+                baseColumnNames="workspace_id"
+                baseTableName="user_workspace"
+                referencedColumnNames="workspace_id"
+                referencedTableName="workspace"
+                constraintName="fk_workspace_user_workspace" />
+
+        <addForeignKeyConstraint
+                baseColumnNames="owner_id"
+                baseTableName="user_workspace"
+                referencedColumnNames="user_id"
+                referencedTableName="users"
+                constraintName="fk_owner_user_workspace" />
+    </changeSet>
+</databaseChangeLog>
