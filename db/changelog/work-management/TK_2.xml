@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <!-- Users Table -->
+    <changeSet id="TK_2_Create_Users_Table" author="Khushbu">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="userSequence" startValue="1" />
+
+        <createTable tableName="users">
+            <column name="user_id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="user_name" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="job_title" type="VARCHAR(255)" />
+            <column name="email_address" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="password" type="VARCHAR(255)" />
+            <column name="status" type="VARCHAR(50)" />
+            <column name="joined_date" type="DATE">
+                <constraints nullable="false" />
+            </column>
+            <column name="last_active_date" type="DATE" />
+        </createTable>
+
+        <addUniqueConstraint
+                columnNames="user_name, email_address"
+                constraintName="unique_user_constraint"
+                tableName="users" />
+    </changeSet>
+
+    <!-- Workspace Table -->
+    <changeSet id="TK_2_Create_Workspace_Table" author="Khushbu">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="workspace"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="workspaceSequence" startValue="1" />
+
+        <createTable tableName="workspace">
+            <column name="workspace_id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="workspace_name" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="description" type="TEXT" />
+            <column name="created_by" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_date" type="TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addUniqueConstraint
+                columnNames="workspace_name, created_by"
+                constraintName="unique_workspace_constraint"
+                tableName="workspace" />
+    </changeSet>
+</databaseChangeLog>
