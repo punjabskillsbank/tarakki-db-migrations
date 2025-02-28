@@ -5,70 +5,65 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
-    <!-- Users Table -->
-    <changeSet id="TK_2_Create_Users_Table" author="Khushbu">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="users"/>
-            </not>
-        </preConditions>
-
-        <createSequence sequenceName="userSequence" startValue="1" />
-
+    <!-- Create Users Table -->
+    <changeSet id="TK_2_001-create-users-table" author="Khushbu">
         <createTable tableName="users">
-            <column name="user_id" type="BIGSERIAL">
+            <column name="user_id" type="UUID">
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="user_name" type="VARCHAR(255)">
-                <constraints nullable="false" />
+            <column name="email" type="VARCHAR(255)">
+                <constraints unique="true" nullable="false" />
             </column>
             <column name="job_title" type="VARCHAR(255)" />
-            <column name="email_address" type="VARCHAR(255)">
+            <column name="status" type="VARCHAR(50)">
                 <constraints nullable="false" />
             </column>
-            <column name="password" type="VARCHAR(255)" />
-            <column name="status" type="VARCHAR(50)" />
-            <column name="joined_date" type="DATE">
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false" />
             </column>
-            <column name="last_active_date" type="DATE" />
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
         </createTable>
-
-        <addUniqueConstraint
-                columnNames="user_name, email_address"
-                constraintName="unique_user_constraint"
-                tableName="users" />
     </changeSet>
 
-    <!-- Workspace Table -->
-    <changeSet id="TK_2_Create_Workspace_Table" author="Khushbu">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="workspace"/>
-            </not>
-        </preConditions>
+    <!-- Create Trigger for Users Table -->
+    <changeSet id="TK_2_003-create-trigger-function" author="Khushbu">
+        <sql>
+            CREATE OR REPLACE FUNCTION update_last_updated_column()
+            RETURNS TRIGGER AS $$
+            BEGIN
+            NEW.updated_at = NOW();
+            RETURN NEW;
+            END
+            $$ LANGUAGE plpgsql;
+        </sql>
+    </changeSet>
 
-        <createSequence sequenceName="workspaceSequence" startValue="1" />
+    <changeSet id="TK_2_004-create-trigger" author="Khushbu">
+        <sql>
+            CREATE TRIGGER set_updated_at
+            BEFORE UPDATE ON users
+            FOR EACH ROW
+            EXECUTE FUNCTION update_last_updated_column();
+        </sql>
+    </changeSet>
 
+    <!-- Create Workspace Table -->
+    <changeSet id="TK_2_002-create-workspace-table" author="Khushbu">
         <createTable tableName="workspace">
-            <column name="workspace_id" type="BIGSERIAL">
+            <column name="workspace_id" type="serial">
                 <constraints primaryKey="true" nullable="false" />
             </column>
-            <column name="workspace_name" type="VARCHAR(255)">
-                <constraints nullable="false" />
-            </column>
-            <column name="description" type="TEXT" />
             <column name="created_by" type="VARCHAR(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="created_date" type="TIMESTAMP">
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false" />
             </column>
         </createTable>
-
-        <addUniqueConstraint
-                columnNames="workspace_name, created_by"
-                constraintName="unique_workspace_constraint"
-                tableName="workspace" />
     </changeSet>
 </databaseChangeLog>
