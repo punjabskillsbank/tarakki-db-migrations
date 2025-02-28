@@ -7,18 +7,9 @@
 
     <!-- Create Enum Type for Role -->
     <changeSet id="TK_3_Create_Role_Enum" author="Khushbu">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <sqlCheck expectedResult="0">
-                    SELECT COUNT(*) FROM pg_type WHERE typname = 'role_enum';
-                </sqlCheck>
-            </not>
-        </preConditions>
-
         <sql>
             CREATE TYPE role_enum AS ENUM ('OWNER', 'MEMBER');
         </sql>
-
         <rollback>
             <sql>
                 DROP TYPE IF EXISTS role_enum;
