@@ -6,8 +6,6 @@
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <include file="db/changelog/notifications/TK_1.xml"/>
-
     <include file="db/changelog/work-management/TK_2.xml"/>
     <include file="db/changelog/work-management/TK_3.xml"/>
-
 </databaseChangeLog>
