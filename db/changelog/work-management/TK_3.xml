@@ -10,7 +10,7 @@
         <preConditions onFail="MARK_RAN">
             <not>
                 <sqlCheck expectedResult="0">
-                    SELECT COUNT(*) FROM pg_type WHERE typename = 'role_enum';
+                    SELECT COUNT(*) FROM pg_type WHERE typname = 'role_enum';
                 </sqlCheck>
             </not>
         </preConditions>
