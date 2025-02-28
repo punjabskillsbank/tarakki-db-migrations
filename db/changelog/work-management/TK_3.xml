@@ -7,7 +7,7 @@
 
     <!-- Create Enum Type for Role -->
     <changeSet id="TK_3_Create_Role_Enum" author="Khushbu">
-        <preConditions onFail="HALT">
+        <preConditions onFail="MARK_RAN">
             <not>
                 <sqlCheck expectedResult="0">
                     SELECT COUNT(*) FROM pg_type WHERE typname = 'role_enum';
@@ -28,7 +28,7 @@
 
     <!-- Create User_Workspace Table -->
     <changeSet id="TK_3_Create_User_Workspace_Table" author="Khushbu">
-        <preConditions onFail="HALT">
+        <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="user_workspace"/>
             </not>
