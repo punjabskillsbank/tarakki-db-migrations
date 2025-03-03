@@ -13,7 +13,7 @@
     </changeSet>
 
     <!-- Create Users Table -->
-    <changeSet id="TK_2_002-create-users-table" author="Khushbu">
+    <changeSet id="TK_2_002-created-users-table" author="Khushbu">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="users"/>
