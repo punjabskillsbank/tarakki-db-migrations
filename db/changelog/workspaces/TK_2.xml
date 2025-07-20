@@ -51,30 +51,10 @@
             </column>
         </createTable>
 
-        <!-- Create indexes for better performance -->
-        <createIndex indexName="idx_workspaces_owner_id" tableName="workspaces">
-            <column name="owner_id"/>
-        </createIndex>
-
-        <createIndex indexName="idx_workspaces_organization_id" tableName="workspaces">
-            <column name="organization_id"/>
-        </createIndex>
-
-        <createIndex indexName="idx_workspaces_status" tableName="workspaces">
-            <column name="status"/>
-        </createIndex>
-
-        <createIndex indexName="idx_workspaces_created_at" tableName="workspaces">
-            <column name="created_at"/>
-        </createIndex>
 
 
-        <!-- Rollback: Drop the table and indexes if they exist -->
+        <!-- Rollback: Drop the table if it exists -->
         <rollback>
-            <dropIndex indexName="idx_workspaces_created_at" tableName="workspaces"/>
-            <dropIndex indexName="idx_workspaces_status" tableName="workspaces"/>
-            <dropIndex indexName="idx_workspaces_organization_id" tableName="workspaces"/>
-            <dropIndex indexName="idx_workspaces_owner_id" tableName="workspaces"/>
             <dropTable tableName="workspaces"/>
         </rollback>
     </changeSet>
