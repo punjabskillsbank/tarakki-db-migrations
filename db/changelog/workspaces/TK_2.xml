@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet id="TK_2_Create_Workspaces_Table" author="System">
+        <!-- Halt script if the table already exists -->
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="workspaces"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="workspaces">
+            <column name="workspace_id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="pk_workspaces" nullable="false"/>
+            </column>
+            <column name="workspace_uuid" type="UUID" defaultValueComputed="gen_random_uuid()">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_workspaces_uuid"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="workspace_type" type="VARCHAR(50)" defaultValue="STANDARD">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(50)" defaultValue="ACTIVE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="owner_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="organization_id" type="BIGINT"/>
+            <column name="settings" type="JSONB"/>
+            <column name="is_public" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="is_archived" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="archived_at" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="BIGINT"/>
+            <column name="updated_by" type="BIGINT"/>
+            <column name="version" type="INTEGER" defaultValueNumeric="1">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Create indexes for better performance -->
+        <createIndex indexName="idx_workspaces_owner_id" tableName="workspaces">
+            <column name="owner_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_workspaces_organization_id" tableName="workspaces">
+            <column name="organization_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_workspaces_status" tableName="workspaces">
+            <column name="status"/>
+        </createIndex>
+
+        <createIndex indexName="idx_workspaces_created_at" tableName="workspaces">
+            <column name="created_at"/>
+        </createIndex>
+
+        <!-- Add comments for documentation -->
+        <sql>
+            COMMENT ON TABLE workspaces IS 'Stores workspace information for organizing user content and projects';
+            COMMENT ON COLUMN workspaces.workspace_id IS 'Primary key for the workspace';
+            COMMENT ON COLUMN workspaces.workspace_uuid IS 'Unique UUID for external references';
+            COMMENT ON COLUMN workspaces.name IS 'Display name of the workspace';
+            COMMENT ON COLUMN workspaces.description IS 'Optional description of the workspace purpose';
+            COMMENT ON COLUMN workspaces.workspace_type IS 'Type of workspace (STANDARD, PREMIUM, ENTERPRISE)';
+            COMMENT ON COLUMN workspaces.status IS 'Current status (ACTIVE, INACTIVE, SUSPENDED)';
+            COMMENT ON COLUMN workspaces.owner_id IS 'User ID of the workspace owner';
+            COMMENT ON COLUMN workspaces.organization_id IS 'Organization this workspace belongs to (optional)';
+            COMMENT ON COLUMN workspaces.settings IS 'JSON configuration settings for the workspace';
+            COMMENT ON COLUMN workspaces.is_public IS 'Whether the workspace is publicly accessible';
+            COMMENT ON COLUMN workspaces.is_archived IS 'Whether the workspace is archived';
+            COMMENT ON COLUMN workspaces.archived_at IS 'Timestamp when workspace was archived';
+        </sql>
+
+        <!-- Rollback: Drop the table and indexes if they exist -->
+        <rollback>
+            <dropIndex indexName="idx_workspaces_created_at" tableName="workspaces"/>
+            <dropIndex indexName="idx_workspaces_status" tableName="workspaces"/>
+            <dropIndex indexName="idx_workspaces_organization_id" tableName="workspaces"/>
+            <dropIndex indexName="idx_workspaces_owner_id" tableName="workspaces"/>
+            <dropTable tableName="workspaces"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
