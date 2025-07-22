@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet id="TK_2_Create_Boards_Table" author="Gurwinder Singh">
+        <!-- Halt script if the table already exists -->
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="boards"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="boards">
+            <column name="boards_id" autoIncrement="true" type="BIGSERIAL" >
+                <constraints primaryKey="true" primaryKeyName="pk_boards" nullable="false"/>
+            </column>
+
+            <column name="user_id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="first_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="task" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="description" type="TEXT"/>
+
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_DATE"/>
+
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="NOW()"/>
+
+            <column name="status" type="VARCHAR(20)" defaultValue="active">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="priority" type="VARCHAR(20)" defaultValue="low">
+                <constraints nullable="false"/>
+            </column>
+
+
+        </createTable>
+
+        <!-- Rollback: Drop the table if it exists -->
+        <rollback>
+            <dropTable tableName="boards"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
