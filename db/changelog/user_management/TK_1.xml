@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="
-      http://www.liquibase.org/xml/ns/dbchangelog
-      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
-    <changeSet id="TK_1_Create_Users_Table" author="Ivkaran Singh">
+    <changeSet id="TK_1_create_users_table" author="Ivkaran Singh">
 
         <preConditions onFail="MARK_RAN">
             <not>
@@ -58,5 +57,10 @@
             </column>
         </createTable>
 
+        <rollback>
+            <dropTable tableName="users"/>
+        </rollback>
+
     </changeSet>
+
 </databaseChangeLog>
