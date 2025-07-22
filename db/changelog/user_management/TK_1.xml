@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <!-- ENUM creation for role -->
+    <changeSet id="TK_1_create_user_role_enum" author="Jagjit Singh">
+        <sql>CREATE TYPE user_role AS ENUM ('ADMIN', 'MEMBER', 'GUEST');</sql>
+        <rollback>
+            <sql>DROP TYPE user_role;</sql>
+        </rollback>
+    </changeSet>
+
+    <!-- Users table creation -->
+    <changeSet id="TK_1_create_users_table" author="Jagjit Singh">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="users">
+            <column name="user_id" type="UUID">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk_users"/>
+            </column>
+
+            <column name="email" type="VARCHAR(255)">
+                <constraints unique="true" nullable="false" uniqueConstraintName="uk_users_email"/>
+            </column>
+
+            <column name="first_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_name" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="role" type="user_role">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="users"/>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>
