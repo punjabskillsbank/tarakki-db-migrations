@@ -7,4 +7,6 @@
 
     <include file="db/changelog/notifications/TK_1.xml"/>
 
+    <include file="db/changelog/boards/TK_1.xml"/>
+
 </databaseChangeLog>
