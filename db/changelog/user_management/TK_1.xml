@@ -15,6 +15,7 @@
 
     <!-- Users table creation -->
     <changeSet id="TK_1_create_users_table" author="Jagjit Singh">
+
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="users"/>
@@ -42,6 +43,20 @@
                 <constraints nullable="false"/>
             </column>
 
+            <!-- Moved these 3 columns just after 'role' -->
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="profile_photo_s3_key" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+
+            <!-- Existing timestamp columns -->
             <column name="created_at" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
@@ -54,22 +69,7 @@
         <rollback>
             <dropTable tableName="users"/>
         </rollback>
-    </changeSet>
 
-    <!-- Add new columns to users table -->
-    <changeSet id="TK_1_add_new_columns" author="Jagjit Singh">
-        <addColumn tableName="users">
-            <column name="title" type="VARCHAR(255)"/>
-            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true">
-                <constraints nullable="false"/>
-            </column>
-            <column name="profile_photo_s3_key" type="TEXT"/>
-        </addColumn>
-        <rollback>
-            <dropColumn tableName="users" columnName="title"/>
-            <dropColumn tableName="users" columnName="is_active"/>
-            <dropColumn tableName="users" columnName="profile_photo_s3_key"/>
-        </rollback>
     </changeSet>
 
 </databaseChangeLog>
