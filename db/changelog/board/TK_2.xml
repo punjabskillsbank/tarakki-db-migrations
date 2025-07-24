@@ -6,13 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
 
-    <changeSet id="TK_2_Create_Boards_Type_Enum" author="Gurwinder Singh">
-        <sql>
-            CREATE TYPE board_type_enum AS ENUM ('SHAREABLE', 'PRIVATE');
-        </sql>
-    </changeSet>
-
-    <changeSet id="TK_2_Create_Boards_Table_v2" author="Gurwinder Singh">
+    <changeSet id="TK_2_Create_Boards_Table" author="Gurwinder Singh">
         <!-- Halt script if the table already exists -->
         <preConditions onFail="MARK_RAN">
             <not>
@@ -21,25 +15,23 @@
         </preConditions>
 
         <createTable tableName="boards">
-            <column name="boards_id" type="BIGINT">
+            <column name="board_id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="pk_boards" nullable="false"/>
             </column>
 
-            <column name="boards_name" type="VARCHAR(255)">
+            <column name="board_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="board_type" type="board_type_enum">
-                <constraints nullable="false"/>
-            </column>
+
 
             <column name="description" type="TEXT"/>
 
-            <column name="created_at" type="TIMESTAMP" defaultValueComputed="NOW()">
+            <column name="created_at" type="TIMESTAMP" >
                 <constraints nullable="false"/>
             </column>
 
-            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="NOW()">
+            <column name="updated_at" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
 
