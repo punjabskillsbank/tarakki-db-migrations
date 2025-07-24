@@ -54,31 +54,10 @@
       
       
 
-        <!-- Add comments for documentation -->
-        <sql>
-            COMMENT ON TABLE workspaces IS 'Stores workspace information for organizing user content and projects';
-            COMMENT ON COLUMN workspaces.workspace_id IS 'Primary key for the workspace';
-            COMMENT ON COLUMN workspaces.workspace_uuid IS 'Unique UUID for external references';
-            COMMENT ON COLUMN workspaces.name IS 'Display name of the workspace';
-            COMMENT ON COLUMN workspaces.description IS 'Optional description of the workspace purpose';
-            COMMENT ON COLUMN workspaces.workspace_type IS 'Type of workspace (STANDARD, PREMIUM, ENTERPRISE)';
-            COMMENT ON COLUMN workspaces.status IS 'Current status (ACTIVE, INACTIVE, SUSPENDED)';
-            COMMENT ON COLUMN workspaces.owner_id IS 'User ID of the workspace owner';
-            COMMENT ON COLUMN workspaces.organization_id IS 'Organization this workspace belongs to (optional)';
-            COMMENT ON COLUMN workspaces.settings IS 'JSON configuration settings for the workspace';
-            COMMENT ON COLUMN workspaces.is_public IS 'Whether the workspace is publicly accessible';
-            COMMENT ON COLUMN workspaces.is_archived IS 'Whether the workspace is archived';
-            COMMENT ON COLUMN workspaces.archived_at IS 'Timestamp when workspace was archived';
-        </sql>
+      
+           
 
-        <!-- Rollback: Drop the table and indexes if they exist -->
-        <rollback>
-            <dropIndex indexName="idx_workspaces_created_at" tableName="workspaces"/>
-            <dropIndex indexName="idx_workspaces_status" tableName="workspaces"/>
-            <dropIndex indexName="idx_workspaces_organization_id" tableName="workspaces"/>
-            <dropIndex indexName="idx_workspaces_owner_id" tableName="workspaces"/>
-            <dropTable tableName="workspaces"/>
-        </rollback>
+       
     </changeSet>
 
 </databaseChangeLog>
