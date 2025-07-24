@@ -13,38 +13,27 @@
             </not>
         </preConditions>
 
-        <createTable tableName="boards">
-            <column name="boards_id" autoIncrement="true" type="BIGSERIAL" >
+
+        <createTable tableName="boards" >
+            <column name="boards_id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="pk_boards" nullable="false"/>
             </column>
 
-            <column name="user_id" type="BIGINT">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-
-            <column name="first_name" type="VARCHAR(50)">
+            <column name="boards_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="last_name" type="VARCHAR(50)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="task" type="VARCHAR(100)">
+            <column name="board_type" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
 
             <column name="description" type="TEXT"/>
 
-            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_DATE"/>
-
-            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="NOW()"/>
-
-            <column name="status" type="VARCHAR(20)" defaultValue="active">
+            <column name="created_by" type="BIGINT" >
                 <constraints nullable="false"/>
             </column>
 
-            <column name="priority" type="VARCHAR(20)" defaultValue="low">
+            <column name="updated_by" type="TIMESTAMP" >
                 <constraints nullable="false"/>
             </column>
 
