@@ -39,6 +39,21 @@
                 <constraints nullable="true"/>
             </column>
 
+            <!-- New column: title -->
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <!-- New column: is_active -->
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+
+            <!-- New column: profile_photo_s3_key -->
+            <column name="profile_photo_s3_key" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+
             <column name="role" type="user_role">
                 <constraints nullable="false"/>
             </column>
