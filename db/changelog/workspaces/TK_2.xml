@@ -36,8 +36,8 @@
             <column name="organization_id" type="BIGINT"/>
             <column name="settings" type="JSONB"/>
             <column name="is_public" type="BOOLEAN" defaultValueBoolean="false"/>
-            <column name="is_archived" type="BOOLEAN" defaultValueBoolean="false"/>
-            <column name="archived_at" type="TIMESTAMP WITH TIME ZONE"/>
+            
+            
             <column name="created_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="NOW()">
                 <constraints nullable="false"/>
             </column>
