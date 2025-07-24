@@ -24,7 +24,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="TEXT"/>
-            <column name="workspace_type" type="VARCHAR(50)" defaultValue="STANDARD">
+            <type="VARCHAR(50)" defaultValue="STANDARD">
                 <constraints nullable="false"/>
             </column>
             <column name="status" type="VARCHAR(50)" defaultValue="ACTIVE">
