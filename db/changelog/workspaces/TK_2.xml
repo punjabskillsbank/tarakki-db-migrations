@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
-    <changeSet id="TK_2_Create_Workspaces_Table" author="gaganpreetcm">
+    <changeSet id="TK_2_Create_Workspaces_Table" author="Gaganpreet Singh">
         <!-- Halt script if the table already exists -->
         <preConditions onFail="MARK_RAN">
             <not>
