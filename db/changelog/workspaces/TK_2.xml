@@ -17,7 +17,7 @@
             <column name="workspace_id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="pk_workspaces" nullable="false"/>
             </column>
-            <column name="workspace_uuid" type="UUID" defaultValueComputed="gen_random_uuid()">
+
                 <constraints nullable="false" unique="true" uniqueConstraintName="uk_workspaces_uuid"/>
             </column>
             <column name="name" type="VARCHAR(255)">
