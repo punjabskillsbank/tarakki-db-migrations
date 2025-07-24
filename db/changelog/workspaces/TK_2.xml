@@ -46,7 +46,7 @@
             </column>
             <column name="created_by" type="BIGINT"/>
             <column name="updated_by" type="BIGINT"/>
-            <column name="version" type="INTEGER" defaultValueNumeric="1">
+            type="INTEGER" defaultValueNumeric="1">
                 <constraints nullable="false"/>
             </column>
         </createTable>
