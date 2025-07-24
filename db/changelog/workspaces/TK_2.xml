@@ -20,7 +20,7 @@
 
                 <constraints nullable="false" unique="true" uniqueConstraintName="uk_workspaces_uuid"/>
             </column>
-            <column name="name" type="VARCHAR(255)">
+            <column name="workspace_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="TEXT"/>
