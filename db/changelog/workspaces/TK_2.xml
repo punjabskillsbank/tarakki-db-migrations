@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
-    <changeSet id="TK-2" author="your.name">
+    <changeSet id="TK-2" author="Gaganpreet Singh">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="workspaces"/>
@@ -75,27 +75,6 @@
             </column>
         </createTable>
 
-        <!-- Indexes -->
-        <createIndex indexName="idx_workspaces_uuid" tableName="workspaces" unique="true">
-            <column name="uuid"/>
-        </createIndex>
-
-        <createIndex indexName="idx_workspaces_name" tableName="workspaces">
-            <column name="name"/>
-        </createIndex>
-
-        <createIndex indexName="idx_workspaces_slug" tableName="workspaces" unique="true">
-            <column name="slug"/>
-        </createIndex>
-
-        <createIndex indexName="idx_workspaces_domain" tableName="workspaces">
-            <column name="domain"/>
-        </createIndex>
-
-        <createIndex indexName="idx_workspaces_status" tableName="workspaces">
-            <column name="status"/>
-        </createIndex>
-
         <!-- Trigger for updated_at -->
         <sql>
             CREATE OR REPLACE FUNCTION update_workspaces_updated_at()
@@ -111,9 +90,9 @@
                 FOR EACH ROW
                 EXECUTE FUNCTION update_workspaces_updated_at();
         </sql>
-    </changeSet>
 
-    <changeSet id="TK-2-rollback" author="your.name">
+    </changeSet>
+ <changeSet id="TK-2-rollback" author="your.name">
         <rollback>
             <dropTrigger triggerName="trigger_update_workspaces_timestamp" tableName="workspaces"/>
             <sql>DROP FUNCTION IF EXISTS update_workspaces_updated_at();</sql>
