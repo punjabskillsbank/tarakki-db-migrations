@@ -3,9 +3,9 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">`
 
-    <changeSet id="TK-2" author="your.name">
+    <changeSet id="TK_2_202507261430_gaganpreet Singh">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="workspaces"/>
@@ -16,63 +16,8 @@
             <!-- Primary Identifiers -->
             <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="uuid" type="UUID" defaultValueComputed="gen_random_uuid()">
-                <constraints nullable="false" unique="true"/>
-            </column>
 
-            <!-- Basic Information -->
-            <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="slug" type="VARCHAR(255)" remarks="URL-friendly version of name">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="description" type="TEXT"/>
-            <column name="logo_url" type="VARCHAR(1024)"/>
-            
-            <!-- Configuration -->
-            <column name="settings" type="JSONB" remarks="Flexible workspace settings and configuration"/>
-            <column name="features" type="JSONB" remarks="Enabled/disabled workspace features"/>
             <column name="metadata" type="JSONB" remarks="Additional metadata and custom fields"/>
-            
-            <!-- Security and Access -->
-            <column name="visibility" type="VARCHAR(20)" defaultValue="PRIVATE" remarks="PUBLIC, PRIVATE, or LIMITED">
-                <constraints nullable="false"/>
-            </column>
-            <column name="security_settings" type="JSONB" remarks="Security and access control configuration"/>
-            
-            <!-- Business Fields -->
-            <column name="plan_tier" type="VARCHAR(50)" defaultValue="FREE" remarks="Subscription plan level"/>
-            <column name="max_members" type="INTEGER" defaultValue="5"/>
-            <column name="domain" type="VARCHAR(255)"/>
-            
-            <!-- Status Fields -->
-            <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE" remarks="ACTIVE, INACTIVE, SUSPENDED, ARCHIVED">
-                <constraints nullable="false"/>
-            </column>
-            <column name="is_verified" type="BOOLEAN" defaultValueBoolean="false">
-                <constraints nullable="false"/>
-            </column>
-            
-            <!-- Timestamps -->
-            <column name="last_active_at" type="TIMESTAMP WITH TIME ZONE"/>
-            <column name="trial_ends_at" type="TIMESTAMP WITH TIME ZONE"/>
-            <column name="suspended_at" type="TIMESTAMP WITH TIME ZONE"/>
-            
-            <!-- Audit Fields -->
-            <column name="created_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
-                <constraints nullable="false"/>
-            </column>
-            <column name="updated_at" type="TIMESTAMP WITH TIME ZONE" defaultValueComputed="CURRENT_TIMESTAMP">
-                <constraints nullable="false"/>
-            </column>
-            <column name="created_by" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="updated_by" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
 
         <!-- Indexes -->
@@ -113,7 +58,8 @@
         </sql>
     </changeSet>
 
-    <changeSet id="TK-2-rollback" author="your.name">
+    <changeSet id="TK_2-rollback" author="Gaganpreet Singh">
+
         <rollback>
             <dropTrigger triggerName="trigger_update_workspaces_timestamp" tableName="workspaces"/>
             <sql>DROP FUNCTION IF EXISTS update_workspaces_updated_at();</sql>
