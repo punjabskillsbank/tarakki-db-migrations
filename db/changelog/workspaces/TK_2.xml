@@ -3,7 +3,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">`
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
     <changeSet id="TK_2_202507261430_gaganpreet Singh">
         <preConditions onFail="MARK_RAN">
@@ -16,8 +16,33 @@
             <!-- Primary Identifiers -->
             <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
-
+            </column>
+            <column name="uuid" type="UUID" defaultValueComputed="gen_random_uuid()">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            
+            <!-- Basic Information -->
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="domain" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(50)" defaultValue="ACTIVE">
+                <constraints nullable="false"/>
+            </column>
+            
+            <!-- Additional Fields -->
             <column name="metadata" type="JSONB" remarks="Additional metadata and custom fields"/>
+            
+            <!-- Timestamps -->
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
         <!-- Indexes -->
@@ -59,7 +84,6 @@
     </changeSet>
 
     <changeSet id="TK_2-rollback" author="Gaganpreet Singh">
-
         <rollback>
             <dropTrigger triggerName="trigger_update_workspaces_timestamp" tableName="workspaces"/>
             <sql>DROP FUNCTION IF EXISTS update_workspaces_updated_at();</sql>
