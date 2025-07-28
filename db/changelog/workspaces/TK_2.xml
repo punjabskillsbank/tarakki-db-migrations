@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
-    <changeSet id="TK_2_202507261430_gaganpreet Singh">
+    <changeSet id="TK_2_Add-workspace-table">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="workspaces"/>
@@ -16,10 +16,7 @@
             <!-- Primary Identifiers -->
             <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="uuid" type="UUID" defaultValueComputed="gen_random_uuid()">
-                <constraints nullable="false" unique="true"/>
-            </column>
+
             
             <!-- Basic Information -->
             <column name="name" type="VARCHAR(255)">
@@ -83,7 +80,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="TK_2-rollback" author="Gaganpreet Singh">
+    <changeSet id="TK_2_Add-workspace-table">
         <rollback>
             <dropTrigger triggerName="trigger_update_workspaces_timestamp" tableName="workspaces"/>
             <sql>DROP FUNCTION IF EXISTS update_workspaces_updated_at();</sql>
