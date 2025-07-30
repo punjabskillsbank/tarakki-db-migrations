@@ -3,15 +3,17 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
     <changeSet id="TK_2_Add-workspace-table" author="Gaganpreet singh">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="workspaces"/>
             </not>
         </preConditions>
-        <createTable tableName="workspaces" remarks="Stores workspace information and configuration">
-        <column name="workspace_id" type="BIGSERIAL">
+
+        <createTable tableName="workspaces">
+            <column name="workspace_id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="workspace_name" type="VARCHAR(255)">
@@ -31,8 +33,10 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
         <rollback>
             <dropTable tableName="workspaces"/>
         </rollback>
     </changeSet>
+
 </databaseChangeLog>
