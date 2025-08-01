@@ -3,7 +3,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
     <changeSet id="TK_2_Add-workspace-table" author="Gaganpreet singh">
         <preConditions onFail="MARK_RAN">
@@ -11,7 +11,6 @@
                 <tableExists tableName="workspaces"/>
             </not>
         </preConditions>
-
         <createTable tableName="workspaces">
             <column name="workspace_id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
@@ -20,23 +19,17 @@
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="TEXT"/>
-            <column name="is_active" type="BOOLEAN">
-                <constraints nullable="false"/>
-            </column>
+            <constraints nullable="false"/>
             <column name="created_by" type="UUID">
                 <constraints nullable="false"/>
             </column>
             <column name="created_at" type="TIMESTAMP">
-                <constraints nullable="false"/>
             </column>
             <column name="updated_at" type="TIMESTAMP">
-                <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <rollback>
+    <rollback>
             <dropTable tableName="workspaces"/>
         </rollback>
     </changeSet>
-
-</databaseChangeLog>
+        </databaseChangeLog>
