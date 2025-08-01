@@ -13,30 +13,16 @@
                 <tableExists tableName="groups"/>
             </not>
         </preConditions>
-
         <createTable tableName="groups">
             <column name="group_id" type="BIGSERIAL">
                 <constraints primaryKey="true" primaryKeyName="pk_groups" nullable="false"/>
             </column>
-            <column name="group_name" type="VARCHAR(255)">
+            <column name="group_title" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="fk_board_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-
-            <column name="item" type="VARCHAR(255)">
-
-            </column>
-
-            <column name="status" type="VARCHAR(50)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="priority" type="VARCHAR(50)">
-                <constraints nullable="false"/>
-            </column>
-
             <column name="description" type="TEXT"/>
 
             <column name="created_at" type="TIMESTAMP" >
@@ -45,9 +31,10 @@
             <column name="updated_at" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-
+            <column name="is_active" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
-
         <addForeignKeyConstraint
                 baseColumnNames="fk_board_id"
                 baseTableName="groups"
@@ -55,7 +42,6 @@
                 referencedColumnNames="board_id"
                 referencedTableName="boards"
                 onDelete="CASCADE"/>
-
         <rollback>
             <dropTable tableName="boards"/>
         </rollback>
