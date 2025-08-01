@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
 
-    <changeSet id="TK__Create_Groups_Table" author="Gurwinder Singh">
+    <changeSet id="TK_7_Create_Groups_Table" author="Gurwinder Singh">
 
         <preConditions onFail="MARK_RAN">
             <not>
