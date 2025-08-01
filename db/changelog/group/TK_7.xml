@@ -26,10 +26,8 @@
             <column name="description" type="TEXT"/>
 
             <column name="created_at" type="TIMESTAMP" >
-                <constraints nullable="false"/>
             </column>
             <column name="updated_at" type="TIMESTAMP">
-                <constraints nullable="false"/>
             </column>
             <column name="is_active" type="BOOLEAN">
                 <constraints nullable="false"/>
