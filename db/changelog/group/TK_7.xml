@@ -5,7 +5,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
-
     <changeSet id="TK_7_Create_Groups_Table" author="Gurwinder Singh">
 
         <preConditions onFail="MARK_RAN">
@@ -23,10 +22,8 @@
             <column name="board_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_at" type="TIMESTAMP" >
-            </column>
-            <column name="updated_at" type="TIMESTAMP">
-            </column>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
         </createTable>
         <addForeignKeyConstraint
                 baseColumnNames="board_id"
@@ -36,7 +33,7 @@
                 referencedTableName="boards"
                 onDelete="CASCADE"/>
         <rollback>
-            <dropTable tableName="boards"/>
+            <dropTable tableName="groups"/>
         </rollback>
     </changeSet>
 </databaseChangeLog>
