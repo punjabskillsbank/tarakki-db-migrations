@@ -8,5 +8,6 @@
     <include file="db/changelog/user_management/TK_1.xml"/>
     <include file="db/changelog/board/TK_3.xml"/>
     <include file="db/changelog/workspaces/TK_2.xml"/>
-    <include file="db/changelog/groups/TK_7.xml"/>
+    <include file="db/changelog/workspaces/workspace_members table.xml"/>
+
 </databaseChangeLog>
