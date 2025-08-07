@@ -5,17 +5,14 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
     <changeSet id="TK_5_create-workspace-members-table" author="Gaganpreet Singh">
-        <createTable tableName="workspace_members" schemaName="workspaces">
+        <createTable tableName="workspace_members">
             <column name="workspace_member_id" type="BIGSERIAL">
-                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="UUID">
-                <constraints nullable="false" foreignKeyName="fk_workspace_members_user"
-                             referencedTableName="users" referencedColumnNames="id"/>
+                <constraints nullable="false" foreignKeyName="fk_workspace_members_user"/>
             </column>
             <column name="workspace_id" type="BIGINT">
-                <constraints nullable="false" foreignKeyName="fk_workspace_members_workspace"
-                             referencedTableName="workspaces" referencedColumnNames="id"/>
+                <constraints nullable="false" foreignKeyName="fk_workspace_members_workspace"/>
             </column>
         </createTable>
     </changeSet>
