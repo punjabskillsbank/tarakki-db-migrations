@@ -29,12 +29,8 @@
         <column name="assigned_to" type="UUID">
             <constraints nullable="false"/>
         </column>
-        <column name="created_at" type="TIMESTAMP">
-            <constraints nullable="false"/>
-        </column>
-        <column name="updated_at" type="TIMESTAMP">
-            <constraints nullable="false"/>
-        </column>
+        <column name="created_at" type="TIMESTAMP"/>
+        <column name="updated_at" type="TIMESTAMP"/>
         <column name="priority" type="priority_enum">
             <constraints nullable="false"/>
         </column>
