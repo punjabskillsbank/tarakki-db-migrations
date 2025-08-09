@@ -11,7 +11,7 @@
                    </not>
                </preConditions>
         <sql>
-            CREATE TYPE priority_enum AS ENUM ('CRITICAL','HIGH','MEDIUM','LOW');
+            CREATE TYPE priority_enum AS ENUM ('CRITICAL', 'HIGH', 'MEDIUM', 'LOW');
         </sql>
     <createTable tableName="tasks">
         <column name="task_id" type="BIGSERIAL">
@@ -27,16 +27,11 @@
         <column name="created_by" type="UUID">
             <constraints nullable="false"/>
         </column>
-        <column name="assigned_to" type="UUID">
-            <constraints nullable="false"/>
-        </column>
+        <column name="assigned_to" type="UUID"/>
+        <column name="priority" type="priority_enum"/>
+        <column name="due_date" type="DATE"/>
         <column name="created_at" type="TIMESTAMP"/>
         <column name="updated_at" type="TIMESTAMP"/>
-        <column name="priority" type="priority_enum">
-            <constraints nullable="false"/>
-        </column>
-        <column name="due_date" type="DATE">
-        </column>
     </createTable>
         <addForeignKeyConstraint
                 baseTableName="tasks"
