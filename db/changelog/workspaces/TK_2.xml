@@ -11,6 +11,9 @@
                 <tableExists tableName="workspaces"/>
             </not>
         </preConditions>
+        <sql>
+            CREATE TYPE user_workspace_role AS ENUM ('OWNER', 'EDITOR', 'VIEWER');
+        </sql>
         <createTable tableName="workspaces">
             <column name="workspace_id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
@@ -27,6 +30,7 @@
         </createTable>
         <rollback>
             <dropTable tableName="workspaces"/>
+            <sql>DROP TYPE IF EXISTS user_workspace_role;</sql>
         </rollback>
     </changeSet>
 </databaseChangeLog>
