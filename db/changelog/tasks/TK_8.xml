@@ -10,9 +10,11 @@
                        <tableExists tableName="tasks"/>
                    </not>
                </preConditions>
+
         <sql>
             CREATE TYPE priority_enum AS ENUM ('CRITICAL', 'HIGH', 'MEDIUM', 'LOW');
         </sql>
+
     <createTable tableName="tasks">
         <column name="task_id" type="BIGSERIAL">
             <constraints primaryKey="true" primaryKeyName="pk_tasks" nullable="false"/>
@@ -33,6 +35,7 @@
         <column name="created_at" type="TIMESTAMP"/>
         <column name="updated_at" type="TIMESTAMP"/>
     </createTable>
+
         <addForeignKeyConstraint
                 baseTableName="tasks"
                 baseColumnNames="group_id"
