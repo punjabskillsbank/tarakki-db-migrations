@@ -4,7 +4,9 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
     <changeSet id="TK_8_Create_Tasks_Table" author="Gurwinder Singh">
+
                 <preConditions onFail="MARK_RAN" >
                    <not>
                        <tableExists tableName="tasks"/>
@@ -43,5 +45,7 @@
                 referencedColumnNames="group_id"
                 constraintName="fk_groups"
                 onDelete="CASCADE"/>
+
     </changeSet>
-    </databaseChangeLog>
+
+</databaseChangeLog>
