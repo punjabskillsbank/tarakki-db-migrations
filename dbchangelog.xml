@@ -4,10 +4,9 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-
     <include file="db/changelog/user_management/TK_1.xml"/>
-    <include file="db/changelog/board/TK_3.xml"/>
     <include file="db/changelog/workspaces/TK_2.xml"/>
-    <include file="db/changelog/workspaces/TK_5.xml"/>
-
+    <include file="db/changelog/workspaces/TK_5.xml" relativeToChangelogFile="true"/>
+    <include file="db/changelog/board/TK_3.xml"/>
+    <include file="db/changelog/groups/TK_7.xml"/>
 </databaseChangeLog>
