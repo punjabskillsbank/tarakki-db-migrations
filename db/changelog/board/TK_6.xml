@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet id="TK_6_create-board-members-table" author="Jagjit Singh">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="board_members"/>
+            </not>
+        </preConditions>
+        <sql>CREATE TYPE user_board_role AS ENUM('OWNER','EDITOR','VIEWER');</sql>
+        <createTable tableName="board_members">
+            <column name="board_member_id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_board_role" type="user_board_role"/>
+            <column name="board_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_board_members_board"
+                             references="boards(board_id)"/>
+            </column>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false" foreignKeyName="fk_board_members_user"
+                             references="users(user_id)"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+        </createTable>
+
+        <addUniqueConstraint
+                tableName="board_members"
+                columnNames="board_id, user_id"
+                constraintName="uq_board_members_board_user"/>
+
+        <rollback>
+            <dropTable tableName="board_members"/>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>
