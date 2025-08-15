@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet id="TK_8_Create_Tasks_Table" author="Gurwinder Singh">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="tasks"/>
+            </not>
+        </preConditions>
+
+        <sql>
+            CREATE TYPE priority_enum AS ENUM ('CRITICAL', 'HIGH', 'MEDIUM', 'LOW');
+        </sql>
+        <createTable tableName="tasks">
+            <column name="task_id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="pk_tasks" nullable="false"/>
+            </column>
+            <column name="title" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="group_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="assigned_to" type="UUID"/>
+            <column name="priority" type="priority_enum"/>
+            <column name="due_date" type="DATE"/>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="tasks"
+                baseColumnNames="group_id"
+                referencedTableName="groups"
+                referencedColumnNames="group_id"
+                constraintName="fk_groups"
+                onDelete="CASCADE"/>
+
+    </changeSet>
+
+</databaseChangeLog>
