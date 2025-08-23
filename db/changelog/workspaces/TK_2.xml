@@ -3,10 +3,9 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
-    <changeSet id="TK_2_create-workspaces-table" author="Jagjit Singh">
-
+    <changeSet id="TK_2_Add-workspace-table" author="Gaganpreet singh">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="workspaces"/>
@@ -37,7 +36,5 @@
             <dropTable tableName="workspaces"/>
             <sql>DROP TYPE IF EXISTS user_workspace_role;</sql>
         </rollback>
-
     </changeSet>
-
 </databaseChangeLog>
