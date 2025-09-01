@@ -11,11 +11,17 @@
                 <tableExists tableName="workspaces"/>
             </not>
         </preConditions>
+
+        <sql>CREATE TYPE user_workspace_role AS ENUM('OWNER','EDITOR','VIEWER');</sql>
+
         <createTable tableName="workspaces">
             <column name="workspace_id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="workspace_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_workspace_role" type="user_workspace_role">
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="TEXT"/>
@@ -25,8 +31,10 @@
             <column name="created_at" type="TIMESTAMP"/>
             <column name="updated_at" type="TIMESTAMP"/>
         </createTable>
+
         <rollback>
             <dropTable tableName="workspaces"/>
+            <sql>DROP TYPE IF EXISTS user_workspace_role;</sql>
         </rollback>
     </changeSet>
 </databaseChangeLog>
