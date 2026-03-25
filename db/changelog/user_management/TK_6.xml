@@ -10,7 +10,7 @@
 
         <rollback>
             <sql>DROP TYPE IF EXISTS member_account_status;</sql>
-        </rollback>
+        </rollback>jnoiup9i
     </changeSet>
 
     <changeSet id="TK_6_02_Create_Members_Table" author="Kirandeep Kaur">
