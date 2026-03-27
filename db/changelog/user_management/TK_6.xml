@@ -25,17 +25,32 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="first_name" type="VARCHAR(100)"/>
-            <column name="last_name" type="VARCHAR(100)"/>
+            <column name="first_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
 
             <column name="email" type="VARCHAR(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
 
             <column name="profile_photo_s3_key" type="TEXT"/>
-            <column name="account_status" type="member_account_status"/>
-            <column name="created_at" type="TIMESTAMP"/>
-            <column name="updated_at" type="TIMESTAMP"/>
+
+            <column name="account_status" type="member_account_status">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
         </createTable>
 
         <rollback>
