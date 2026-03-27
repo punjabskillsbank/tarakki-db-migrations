@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet id="TK_6_01_Create_Enum_Type" author="Kirandeep Kaur">
+        <sql>CREATE TYPE member_account_status AS ENUM('ACTIVE','INVITED');</sql>
+
+        <rollback>
+            <sql>DROP TYPE IF EXISTS member_account_status;</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="TK_6_02_Create_Members_Table" author="Kirandeep Kaur">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="members"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="members">
+            <column name="member_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="first_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="profile_photo_s3_key" type="TEXT"/>
+
+            <column name="account_status" type="member_account_status">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="members"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
+
+
