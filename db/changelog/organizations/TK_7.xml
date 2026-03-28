@@ -46,13 +46,13 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <!--        <addForeignKeyConstraint-->
-        <!--                baseTableName="organizations"-->
-        <!--                baseColumnNames="owner_id"-->
-        <!--                constraintName="fk_owner_id"-->
-        <!--                referencedTableName="members"-->
-        <!--                referencedColumnNames="id"-->
-        <!--                onDelete="CASCADE"/>-->
+                <addForeignKeyConstraint
+                        baseTableName="organizations"
+                        baseColumnNames="owner_id"
+                        constraintName="fk_owner_id"
+                        referencedTableName="members"
+                        referencedColumnNames="id"
+                        onDelete="CASCADE"/>
         <rollback>
             <dropTable tableName="organizations"/>
         </rollback>
