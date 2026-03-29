@@ -18,7 +18,13 @@
             <column name="org_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="org_desc" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
             <column name="owner_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="org_address" type="TEXT">
                 <constraints nullable="false"/>
             </column>
             <column name="org_city" type="VARCHAR(100)">
@@ -27,16 +33,10 @@
             <column name="org_state" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="org_country" type="VARCHAR(100)" defaultValue="India">
-                <constraints nullable="false"/>
-            </column>
             <column name="org_postal_code" type="VARCHAR(20)">
                 <constraints nullable="false"/>
             </column>
-            <column name="org_address" type="TEXT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="org_description" type="TEXT">
+            <column name="org_country" type="VARCHAR(100)" defaultValue="India">
                 <constraints nullable="false"/>
             </column>
             <column name="created_at" type="TIMESTAMP">
