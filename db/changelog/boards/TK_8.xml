@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id = "TK_8_Create_boards_table" author = "MANMEET_KAUR" >
+        <createTable tableName = "boards">
+            <column name = "board_id" type="BIGINT" autoIncrement = "true">
+                <constraints primaryKey = "true" nullable = "false"/>
+            </column>
+            <column name = "org_id" type="BIGINT" autoIncrement="true">
+                <constraints nullable = "true"/>
+            </column>
+            <column name = "board_name" type="VARCHAR(100)" >
+                <constraints nullable= "false"/>
+            </column>
+            <column name = "board_desc" type="VARCHAR(500)" >
+                <constraints nullable = "false"/>
+            </column>
+            <column name = "created_by" type="VARCHAR(100)" >
+                <constraints nullable = "false"/>
+            </column>
+            <column name = "created_at" type="timestamp" defaultValueComputed="now()">
+                <constraints nullable = "false"/>
+            </column>
+            <column name = "update_at" type="timestamp" defaultValueComputed="now()">
+                <constraints nullable = "false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="boards"/>
+        </rollback>
+
+        <!---
+        <column name="org_id" type="BIGINT">
+            <constraints nullable="false"
+                         foreignKeyName="fk_boards_org"
+                         referencedTableName="organizations"
+                         referencedColumnNames="id"/>
+        </column>
+        <column name="created_by" type="BIGINT">
+            <constraints nullable="false"
+                         foreignKeyName="fk_boards_users"
+                         referencedTableName="users"
+                         referencedColumnNames="id"/>
+        </column>       -->
+
+    </changeSet>
+</databaseChangeLog>
