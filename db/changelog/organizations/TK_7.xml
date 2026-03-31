@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet id="TK_7_Create_Organizations_Table" author="Gurwinder Singh">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="organizations"/>
+            </not>
+        </preConditions>
+        <createTable tableName="organizations">
+            <column name="org_id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="org_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="org_desc" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="owner_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="org_address" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="org_city" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="org_state" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="org_postal_code" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="org_country" type="VARCHAR(100)" defaultValue="India">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="organizations"
+                baseColumnNames="owner_id"
+                constraintName="fk_owner_id"
+                referencedTableName="members"
+                referencedColumnNames="member_id"
+                onDelete="CASCADE"/>
+        <rollback>
+            <dropTable tableName="organizations"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
