@@ -46,6 +46,11 @@
             </column>
         </createTable>
 
+        <addUniqueConstraint
+                tableName="org_members"
+                columnNames="org_id, member_id"
+                constraintName="uk_org_members_org_id_member_id"/>
+
         <addForeignKeyConstraint
                 baseTableName="org_members"
                 baseColumnNames="org_id"
