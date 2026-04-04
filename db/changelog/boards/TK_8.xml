@@ -5,7 +5,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-<changeSet id="TK_8_Create_boards_table_v3" author="MANMEET_KAUR">
+<changeSet id="TK_8_Create_boards_table" author="MANMEET_KAUR">
     <createTable tableName="boards">
         <column name="board_id" type="BIGSERIAL">
             <constraints primaryKey="true" nullable="false"/>
