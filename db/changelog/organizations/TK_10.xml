@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
     <changeSet id="TK_10_01_Create_Org_Member_Role_Enum" author="Kirandeep Kaur">
-        <sql>CREATE TYPE org_member_role AS ENUM('ORG_ADMIN','ORG_MEMBER');</sql>
+        <sql>CREATE TYPE org_member_role_enum AS ENUM('ORG_ADMIN','ORG_MEMBER');</sql>
 
         <rollback>
             <sql>DROP TYPE IF EXISTS org_member_role;</sql>
@@ -33,15 +33,15 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="org_member_role" type="org_member_role">
+            <column name="org_member_role" type="org_member_role_enum">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="created_at" type="TIMESTAMP">
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="now()">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="updated_at" type="TIMESTAMP">
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="now()">
                 <constraints nullable="false"/>
             </column>
         </createTable>
