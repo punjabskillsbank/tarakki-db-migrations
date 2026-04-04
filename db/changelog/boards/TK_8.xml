@@ -7,11 +7,11 @@ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 
 <changeSet id="TK_8_Create_boards_table_v3" author="MANMEET_KAUR">
     <createTable tableName="boards">
-        <column name="board_id" type="BIGINT" autoIncrement="true">
+        <column name="board_id" type="BIGSERIAL">
             <constraints primaryKey="true" nullable="false"/>
         </column>
         <column name="org_id" type="BIGINT">
-            <constraints nullable="true"/>
+            <constraints nullable="false"/>
         </column>
         <column name="board_name" type="VARCHAR(100)">
             <constraints nullable="false"/>
@@ -25,13 +25,11 @@ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         <column name="created_at" type="timestamp" defaultValueComputed="now()">
             <constraints nullable="false"/>
         </column>
-        <column name="update_at" type="timestamp" defaultValueComputed="now()">
+        <column name="updated_at" type="timestamp" defaultValueComputed="now()">
             <constraints nullable="false"/>
         </column>
     </createTable>
-</changeSet>
 
-<changeSet id="TK_8_Add_FK_Constraints" author="MANMEET_KAUR">
     <addForeignKeyConstraint
             baseTableName="boards"
             baseColumnNames="org_id"
