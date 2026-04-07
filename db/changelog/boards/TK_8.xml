@@ -22,10 +22,10 @@ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         <column name="created_by" type="UUID">
             <constraints nullable="false"/>
         </column>
-        <column name="created_at" type="timestamp" defaultValueComputed="now()">
+        <column name="created_at" type="timestamp" >
             <constraints nullable="false"/>
         </column>
-        <column name="updated_at" type="timestamp" defaultValueComputed="now()">
+        <column name="updated_at" type="timestamp">
             <constraints nullable="false"/>
         </column>
     </createTable>
@@ -45,6 +45,10 @@ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
             referencedTableName="members"
             referencedColumnNames="member_id"
             onDelete="CASCADE"/>
+    <rollback>
+        <dropTable tableName="boards"/>
+    </rollback>
+
 </changeSet>
 
 </databaseChangeLog>
