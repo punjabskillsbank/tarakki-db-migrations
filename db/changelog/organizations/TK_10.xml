@@ -37,11 +37,11 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="created_at" type="TIMESTAMP" defaultValueComputed="now()">
+            <column name="created_at" type="TIMESTAMP" >
                 <constraints nullable="false"/>
             </column>
 
-            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="now()">
+            <column name="updated_at" type="TIMESTAMP" >
                 <constraints nullable="false"/>
             </column>
         </createTable>
