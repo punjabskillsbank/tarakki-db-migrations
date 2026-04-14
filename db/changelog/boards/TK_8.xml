@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
+<<<<<<< HEAD
 xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
@@ -46,5 +47,57 @@ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
             referencedColumnNames="member_id"
             onDelete="CASCADE"/>
 </changeSet>
+=======
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="TK_8_Create_boards_table" author="MANMEET_KAUR">
+        <createTable tableName="boards">
+            <column name="board_id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="org_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="board_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="board_desc" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="boards"
+                baseColumnNames="org_id"
+                constraintName="fk_boards_org"
+                referencedTableName="organizations"
+                referencedColumnNames="org_id"
+                onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+                baseTableName="boards"
+                baseColumnNames="created_by"
+                constraintName="fk_boards_created_by_members"
+                referencedTableName="members"
+                referencedColumnNames="member_id"
+                onDelete="CASCADE"/>
+        <rollback>
+            <dropTable tableName="boards"/>
+        </rollback>
+
+    </changeSet>
+>>>>>>> 9ee84116df36397a4dc4f80ac8ae51657ee40d53
 
 </databaseChangeLog>
