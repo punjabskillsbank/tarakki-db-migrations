@@ -9,5 +9,5 @@
     <include file="db/changelog/organizations/TK_7.xml"/>
     <include file="db/changelog/boards/TK_8.xml"/>
     <include file="db/changelog/organizations/TK_10.xml"/>
-    <include file="db/changelog/groups/TK_17.xml"/>
+    <include file="db/changelog/boards/TK_17.xml"/>
 </databaseChangeLog>
