@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="TK_13_Create_boards_role_enum" author="MANMEET_KAUR">
+        <sql>
+            CREATE TYPE board_role AS ENUM ('BOARD_ADMIN', 'MEMBER');
+        </sql>
+        <rollback>
+            <sql>
+                DROP TYPE board_role;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="TK_13_Create_boards_members_table" author="MANMEET_KAUR">
+        <createTable tableName="boards_members">
+
+            <column name="board_member_id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="board_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="member_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="role" type="board_role" defaultValue="MEMBER">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="can_edit" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false" />
+            </column>
+            <column name="can_view" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_at" type="TIMESTAMP" >
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated_at" type="TIMESTAMP" >
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="boards_members"
+                baseColumnNames="board_id"
+                constraintName="fk_boards_members_board"
+                referencedTableName="boards"
+                referencedColumnNames="board_id"
+                onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+                baseTableName="boards_members"
+                baseColumnNames="member_id"
+                constraintName="fk_boards_members_member"
+                referencedTableName="members"
+                referencedColumnNames="member_id"
+                onDelete="CASCADE"/>
+        <rollback>
+            <dropTable tableName="boards_members"/>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>
