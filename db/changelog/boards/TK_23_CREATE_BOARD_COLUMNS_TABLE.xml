@@ -5,11 +5,29 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
-    <changeSet id="TK_23_CREATE_BOARD_COLUMNS_TABLE" author="Ishmeet">
+    <changeSet id="TK_23_CREATE_COLUMN_TYPE_ENUM" author="ishmeet-codes">
+
+        <sql>
+            CREATE TYPE column_type_enum AS ENUM (
+                'STRING',
+                'INT',
+                'DOUBLE',
+                'DATE',
+                'CHAR'
+            );
+        </sql>
+
+        <rollback>
+            DROP TYPE IF EXISTS column_type_enum;
+        </rollback>
+
+    </changeSet>
+
+    <changeSet id="TK_23_CREATE_BOARD_COLUMNS_TABLE" author="your_name">
 
         <createTable tableName="board_columns">
 
-            <column name="board_column_id" type="BIGINT">
+            <column name="board_column_id" type="BIGSERIAL">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
@@ -21,19 +39,20 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="column_type" type="VARCHAR(50)"/>
+            <column name="column_type" type="column_type_enum">
+                <constraints nullable="false"/>
+            </column>
 
             <column name="position" type="INT">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="created_at" type="TIMESTAMP"
-                    defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="created_at" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="updated_at" type="TIMESTAMP"
-                    defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+
         </createTable>
 
         <addForeignKeyConstraint
@@ -48,6 +67,10 @@
                      tableName="board_columns">
             <column name="board_id"/>
         </createIndex>
+
+        <rollback>
+            <dropTable tableName="board_columns"/>
+        </rollback>
 
     </changeSet>
 
