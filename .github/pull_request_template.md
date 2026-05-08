@@ -35,6 +35,6 @@
 
 ---
 
-# 📎 Additional Notes (if any)
+# Additional Notes (if any)
 
 <!-- Mention dependencies, risks, or special instructions -->
