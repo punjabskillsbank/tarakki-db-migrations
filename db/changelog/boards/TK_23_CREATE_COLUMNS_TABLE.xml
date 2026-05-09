@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="TK_23_CREATE_COLUMN_TYPE_ENUM" author="Ishmeet Singh">
+
+        <sql>
+            CREATE TYPE column_type_enum AS ENUM (
+                'STRING',
+                'INT',
+                'DOUBLE',
+                'DATE',
+                'CHAR'
+            );
+        </sql>
+
+        <rollback>
+            DROP TYPE IF EXISTS column_type_enum;
+        </rollback>
+
+    </changeSet>
+
+    <changeSet id="TK_23_CREATE_COLUMNS_TABLE" author="Ishmeet Singh">
+
+        <createTable tableName="columns">
+
+            <column name="column_id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="column_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="column_type" type="column_type_enum">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated_at" type="TIMESTAMP"/>
+
+        </createTable>
+
+        <addUniqueConstraint
+                tableName="columns"
+                columnNames="column_name"
+                constraintName="uk_columns_name"/>
+
+        <rollback>
+            <dropTable tableName="columns"/>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>
