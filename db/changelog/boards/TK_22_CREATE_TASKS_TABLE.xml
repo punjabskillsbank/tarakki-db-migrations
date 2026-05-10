@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
-    <changeSet id="TK_22_Create_Tasks_Table" author="Dhruvjot_Singh">
+    <changeSet id="TK_22_Create_Tasks_Table" author="Dhruvjot Singh">
 
         <preConditions onFail="MARK_RAN">
             <not>
