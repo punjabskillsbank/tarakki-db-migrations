@@ -11,5 +11,6 @@
     <include file="db/changelog/organizations/TK_10.xml"/>
     <include file="db/changelog/boards_members/TK_13.xml"/>
     <include file="db/changelog/boards/TK_17.xml"/>
+    <include file="db/changelog/boards/TK_22_CREATE_TASKS_TABLE.xml"/> 
     <include file="/db/changelog/boards/TK_23_CREATE_COLUMNS_TABLE.xml"/>
 </databaseChangeLog>
