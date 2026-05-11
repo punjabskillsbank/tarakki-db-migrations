@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="TK_27_CREATE_COLUMN_VALUES_TABLE" author="Ishmeet Singh">
+
+        <createTable tableName="column_values">
+
+            <column name="column_value_id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="board_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="task_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="column_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="column_value" type="JSONB">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="position" type="INT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated_at" type="TIMESTAMP"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="column_values"
+                baseColumnNames="board_id"
+                referencedTableName="boards"
+                referencedColumnNames="board_id"
+                constraintName="fk_column_values_board"
+                onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+                baseTableName="column_values"
+                baseColumnNames="task_id"
+                referencedTableName="tasks"
+                referencedColumnNames="task_id"
+                constraintName="fk_column_values_task"
+                onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+                baseTableName="column_values"
+                baseColumnNames="column_id"
+                referencedTableName="columns"
+                referencedColumnNames="column_id"
+                constraintName="fk_column_values_column"
+                onDelete="CASCADE"/>
+
+        <createIndex indexName="idx_column_values_board_id"
+                     tableName="column_values">
+            <column name="board_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_column_values_task_id"
+                     tableName="column_values">
+            <column name="task_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_column_values_column_id"
+                     tableName="column_values">
+            <column name="column_id"/>
+        </createIndex>
+
+        <rollback>
+            <dropTable tableName="column_values"/>
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>
