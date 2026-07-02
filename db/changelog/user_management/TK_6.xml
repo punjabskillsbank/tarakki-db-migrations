@@ -37,6 +37,10 @@
                 <constraints nullable="false" unique="true"/>
             </column>
 
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
             <column name="profile_photo_s3_key" type="TEXT"/>
 
             <column name="account_status" type="member_account_status">
