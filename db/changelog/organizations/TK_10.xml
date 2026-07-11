@@ -38,7 +38,7 @@
             </column>
 
             <column name="member_id" type="UUID">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
 
             <column name="email" type="VARCHAR(255)">
