@@ -46,7 +46,7 @@
             </column>
 
             <column name="status" type="status_enum">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
 
             <column name="org_member_role" type="org_member_role_enum">
