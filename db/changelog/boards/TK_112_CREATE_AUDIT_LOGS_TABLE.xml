@@ -12,33 +12,18 @@
         <!-- Create Audit Event Type Enum -->
         <sql>
             CREATE TYPE audit_event_type_enum AS ENUM (
-                'CREATE',
-                'UPDATE',
-                'DELETE',
-                'VIEW',
-                'LOGIN',
-                'LOGOUT',
-                'REGISTER',
-                'INVITE',
-                'ASSIGN',
-                'UNASSIGN',
-                'STATUS_CHANGE',
-                'ROLE_CHANGE',
-                'PERMISSION_CHANGE',
-                'MOVE',
-                'ARCHIVE',
-                'RESTORE',
-                'EXPORT',
-                'IMPORT'
+                'BOARD_CREATED',
+                'BOARD_UPDATED',
+                'BOARD_DELETED'
             );
         </sql>
 
         <!-- Audit Logs Table -->
         <createTable tableName="audit_logs">
 
-            <column name="audit_log_id" type="BIGSERIAL">
+            <column name="event_id" type="BIGSERIAL">
                 <constraints primaryKey="true"
-                             primaryKeyName="pk_audit_logs"
+                             primaryKeyName="pk_event_logs"
                              nullable="false"/>
             </column>
 
@@ -68,18 +53,12 @@
 
             <column name="new_value" type="JSONB"/>
 
-            <column name="ip_address" type="VARCHAR(45)"/>
-
-            <column name="user_agent" type="TEXT"/>
-
             <column name="created_at" type="TIMESTAMP"
                     defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
 
         </createTable>
-
-        <!-- ================= Rollback ================= -->
 
         <rollback>
 
