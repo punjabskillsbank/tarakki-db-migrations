@@ -12,7 +12,6 @@
         <!-- Create Audit Event Type Enum -->
         <sql>
             CREATE TYPE audit_event_type_enum AS ENUM (
-                'BOARD_CREATED',
                 'BOARD_UPDATED',
                 'BOARD_DELETED'
             );
@@ -27,13 +26,11 @@
                              nullable="false"/>
             </column>
 
-            <column name="request_id" type="UUID"/>
-
             <column name="service_name" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="entity_type" type="VARCHAR(100)">
+            <column name="entity_name" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
 
@@ -41,7 +38,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="event_type" type="audit_event_type_enum">
+            <column name="event_name" type="audit_event_type_enum">
                 <constraints nullable="false"/>
             </column>
 
@@ -53,7 +50,7 @@
 
             <column name="new_value" type="JSONB"/>
 
-            <column name="created_at" type="TIMESTAMP"
+            <column name="event_time" type="TIMESTAMP"
                     defaultValueComputed="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
