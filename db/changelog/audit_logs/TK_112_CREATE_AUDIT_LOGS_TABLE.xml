@@ -50,8 +50,7 @@
 
             <column name="new_value" type="JSONB"/>
 
-            <column name="event_time" type="TIMESTAMP"
-                    defaultValueComputed="CURRENT_TIMESTAMP">
+            <column name="event_time" type="TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
 
