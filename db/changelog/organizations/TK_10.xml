@@ -8,6 +8,14 @@
     <changeSet id="TK_10_01_Create_Org_Member_Role_Enum" author="Kirandeep Kaur">
         <sql>CREATE TYPE org_member_role_enum AS ENUM('ORG_ADMIN','ORG_MEMBER');</sql>
 
+        <sql>
+            CREATE TYPE status_enum AS ENUM (
+                'ACCEPTED',
+                'REJECTED',
+                'PENDING'
+            );
+        </sql>
+
         <rollback>
             <sql>DROP TYPE IF EXISTS org_member_role;</sql>
         </rollback>
@@ -30,6 +38,14 @@
             </column>
 
             <column name="member_id" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="status" type="status_enum">
                 <constraints nullable="false"/>
             </column>
 
