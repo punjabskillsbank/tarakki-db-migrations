@@ -6,6 +6,13 @@ on:
       - develop
       - 'feature/*'
       - 'bugfix/*'
+  workflow_dispatch:
+    inputs:
+      drop_db:
+        description: 'Drop all tables & types before applying migrations?'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   migrate:
@@ -22,6 +29,16 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
+      - name: Drop All Database Objects (If requested)
+        if: ${{ inputs.drop_db == true }}
+        run: |
+          mvn liquibase:dropAll \
+            -Dliquibase.changeLogFile=dbchangelog.xml \
+            -Dliquibase.url="jdbc:postgresql://${{ secrets.PROD_DB_HOST }}:5432/${{ secrets.PROD_DB_NAME }}" \
+            -Dliquibase.username="${{ secrets.PROD_DB_USERNAME }}" \
+            -Dliquibase.password="${{ secrets.PROD_DB_PASSWORD }}" \
+            -Dliquibase.driver=org.postgresql.Driver
+
       - name: Run Liquibase Migrations
         run: |
           mvn liquibase:update \
@@ -30,3 +47,4 @@ jobs:
             -Dliquibase.username="${{ secrets.PROD_DB_USERNAME }}" \
             -Dliquibase.password="${{ secrets.PROD_DB_PASSWORD }}" \
             -Dliquibase.driver=org.postgresql.Driver
+
