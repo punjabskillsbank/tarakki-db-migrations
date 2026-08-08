@@ -6,6 +6,9 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
     <changeSet id="TK_10_01_Create_Org_Member_Role_Enum" author="Kirandeep Kaur">
+        <validCheckSum>9:4de915540a8c711a886d9600120124c3</validCheckSum>
+        <validCheckSum>9:ddb781f2c38b8a61e3eda3ff087ab2c3</validCheckSum>
+        <validCheckSum>1:*</validCheckSum>
         <sql>CREATE TYPE org_member_role_enum AS ENUM('ORG_ADMIN','ORG_MEMBER');</sql>
 
         <rollback>
@@ -14,6 +17,9 @@
     </changeSet>
 
     <changeSet id="TK_10_02_Create_Org_Members_Table" author="Kirandeep Kaur">
+        <validCheckSum>9:eaf9e09db4482e3cc4da1b86c99d2e3c</validCheckSum>
+        <validCheckSum>9:6d3e1b83a9692dd7373ef28462b8a6cb</validCheckSum>
+        <validCheckSum>1:*</validCheckSum>
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="org_members"/>
