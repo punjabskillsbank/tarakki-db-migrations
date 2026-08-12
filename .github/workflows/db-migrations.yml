@@ -27,7 +27,7 @@ jobs:
         run: |
           mvn liquibase:update \
             -Dliquibase.changeLogFile=dbchangelog.xml \
-            -Dliquibase.url="jdbc:postgresql://${{ secrets.PROD_DB_HOST }}:5432/${{ secrets.PROD_DB_NAME }}" \
+            -Dliquibase.url="jdbc:postgresql://${{ secrets.PROD_DB_HOST }}:${{ secrets.PROD_DB_PORT }}/${{ secrets.PROD_DB_NAME }}" \
             -Dliquibase.username="${{ secrets.PROD_DB_USERNAME }}" \
             -Dliquibase.password="${{ secrets.PROD_DB_PASSWORD }}" \
             -Dliquibase.driver=org.postgresql.Driver
