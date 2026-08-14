@@ -1,16 +1,17 @@
-name: Run DB Migrations (Prod)
+name: Run DB Migrations (Dev)
 
 on:
   push:
     branches:
       - develop
-      - 'feature/*'
-      - 'bugfix/*'
+      - feature/TK_98
+
   workflow_dispatch:
 
 jobs:
   migrate:
     runs-on: ubuntu-latest
+    environment: DEV
 
     steps:
       - name: Checkout code
@@ -27,9 +28,9 @@ jobs:
         run: |
           mvn liquibase:update \
             -Dliquibase.changeLogFile=dbchangelog.xml \
-            -Dliquibase.url="jdbc:postgresql://${{ secrets.PROD_DB_HOST }}:${{ secrets.PROD_DB_PORT }}/${{ secrets.PROD_DB_NAME }}" \
-            -Dliquibase.username="${{ secrets.PROD_DB_USERNAME }}" \
-            -Dliquibase.password="${{ secrets.PROD_DB_PASSWORD }}" \
+            -Dliquibase.url="jdbc:postgresql://${{ vars.DB_HOST }}:${{ vars.DB_PORT }}/${{ vars.DB_NAME }}" \
+            -Dliquibase.username="${{ secrets.DB_USERNAME }}" \
+            -Dliquibase.password="${{ secrets.DB_PASSWORD }}" \
             -Dliquibase.driver=org.postgresql.Driver
 
 
