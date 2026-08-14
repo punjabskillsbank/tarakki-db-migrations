@@ -33,15 +33,23 @@
                 <constraints nullable="false" unique="true"/>
             </column>
 
-            <column name="password_hash" type="VARCHAR(255)"/>
+            <column name="password_hash" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
 
             <column name="profile_photo_s3_key" type="TEXT"/>
 
-            <column name="account_status" type="member_account_status"/>
+            <column name="account_status" type="member_account_status">
+                <constraints nullable="false"/>
+            </column>
 
-            <column name="created_at" type="TIMESTAMP"/>
+            <column name="created_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
 
-            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
 
         </createTable>
 
