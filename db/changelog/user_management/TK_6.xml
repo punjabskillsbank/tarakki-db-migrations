@@ -29,9 +29,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="last_name" type="VARCHAR(100)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="last_name" type="VARCHAR(100)"/>
 
             <column name="email" type="VARCHAR(255)">
                 <constraints nullable="false" unique="true"/>
