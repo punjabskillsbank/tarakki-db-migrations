@@ -1,0 +1,35 @@
+name: Run DB Migrations (Dev)
+
+on:
+  push:
+    branches:
+      - develop
+
+  workflow_dispatch:
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    environment: DEV
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+
+      - name: Run Liquibase Migrations
+        run: |
+          mvn liquibase:update \
+            -Dliquibase.changeLogFile=dbchangelog.xml \
+            -Dliquibase.url="jdbc:postgresql://${{ vars.DB_HOST }}:${{ vars.DB_PORT }}/${{ vars.DB_NAME }}" \
+            -Dliquibase.username="${{ secrets.DB_USERNAME }}" \
+            -Dliquibase.password="${{ secrets.DB_PASSWORD }}" \
+            -Dliquibase.driver=org.postgresql.Driver
+
+
