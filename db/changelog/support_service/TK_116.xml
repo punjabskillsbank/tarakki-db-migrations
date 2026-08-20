@@ -48,10 +48,6 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="attachment" type="TEXT">
-                <constraints nullable="true"/>
-            </column>
-
             <column name="created_at" type="timestamp">
                 <constraints nullable="false"/>
             </column>
