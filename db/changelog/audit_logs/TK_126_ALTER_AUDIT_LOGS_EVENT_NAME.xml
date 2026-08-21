@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+            http://www.liquibase.org/xml/ns/dbchangelog
+            https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="TK_126_ALTER_AUDIT_LOGS_EVENT_NAME" author="Ishmeet Singh">
+        <sql>
+            ALTER TABLE audit_logs ALTER COLUMN event_name TYPE character varying USING event_name::text;
+            DROP TYPE IF EXISTS audit_event_type_enum;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
