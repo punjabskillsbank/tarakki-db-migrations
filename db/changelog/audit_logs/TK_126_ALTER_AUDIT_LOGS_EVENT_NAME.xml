@@ -11,6 +11,15 @@
             ALTER TABLE audit_logs ALTER COLUMN event_name TYPE character varying USING event_name::text;
             DROP TYPE IF EXISTS audit_event_type_enum;
         </sql>
+        <rollback>
+            <sql>
+                CREATE TYPE audit_event_type_enum AS ENUM (
+                    'BOARD_UPDATED',
+                    'BOARD_DELETED'
+                );
+                ALTER TABLE audit_logs ALTER COLUMN event_name TYPE audit_event_type_enum USING event_name::audit_event_type_enum;
+            </sql>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>
