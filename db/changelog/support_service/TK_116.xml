@@ -5,6 +5,21 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
+    <changeSet id="TK_116_Create_support_ticket_table_enum" author="MANMEET_KAUR">
+        <sql>
+            CREATE TYPE issue_category_enum AS ENUM ('BILLING', 'TECHNICAL', 'ACCOUNT', 'GENERAL');
+            CREATE TYPE issue_type_enum AS ENUM ('PASSWORD_RESET', 'REFUND_REQUEST', 'BUG_REPORT', 'OTHER');
+            CREATE TYPE ticket_status_enum AS ENUM ('OPEN', 'IN_PROGRESS', 'RESOLVED', 'CLOSED');
+        </sql>
+        <rollback>
+            <sql>
+                DROP TYPE issue_category_enum;
+                DROP TYPE issue_type_enum;
+                DROP TYPE ticket_status_enum;
+            </sql>
+        </rollback>
+    </changeSet>
+
     <changeSet id="TK_116_Create_support_ticket_table" author="MANMEET_KAUR">
         <createTable tableName="support_ticket">
 
@@ -32,11 +47,11 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="issue_category" type="VARCHAR(100)">
+            <column name="issue_category" type="issue_category_enum">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="issue_type" type="VARCHAR(100)">
+            <column name="issue_type" type="issue_type_enum">
                 <constraints nullable="false"/>
             </column>
 
@@ -44,7 +59,7 @@
                 <constraints nullable="true"/>
             </column>
 
-            <column name="ticket_status" type="VARCHAR(100)">
+            <column name="ticket_status" type="ticket_status_enum">
                 <constraints nullable="false"/>
             </column>
 
@@ -55,7 +70,6 @@
             <column name="updated_at" type="timestamp">
                 <constraints nullable="false"/>
             </column>
-
         </createTable>
 
         <addForeignKeyConstraint
