@@ -15,4 +15,6 @@
     <include file="/db/changelog/boards/TK_23_CREATE_COLUMNS_TABLE.xml"/>
     <include file="/db/changelog/boards/TK_27_CREATE_COLUMN_VALUES_TABLE.xml"/>
     <include file="/db/changelog/audit_logs/TK_112_CREATE_AUDIT_LOGS_TABLE.xml"/>
+    <include file="/db/changelog/audit_logs/TK_126_ALTER_AUDIT_LOGS_EVENT_NAME.xml"/>
 </databaseChangeLog>
+
