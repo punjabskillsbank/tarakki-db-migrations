@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="TK_116_Create_support_ticket_table_enum" author="MANMEET_KAUR">
+        <sql>
+            CREATE TYPE issue_category_enum AS ENUM ('ACCOUNT', 'BOARDS', 'TEAM', 'GENERAL');
+            CREATE TYPE issue_type_enum AS ENUM (
+            'LOGIN_ISSUE',
+            'SIGNUP_ERROR',
+            'PASSWORD_RESET_LINK_NOT_RECEIVED',
+            'TWO_FACTOR_AUTH_LOCKOUT',
+            'DELETE_OR_DEACTIVATE_ACCOUNT',
+
+            'FILE_UPLOAD_ERROR',
+            'BOARD_PERFORMANCE',
+            'AUTOMATION_INTEGRATION_ERROR',
+            'LOST_DATA_OR_MISSING_ITEMS',
+
+            'MEMBER_INVITE_ISSUE',
+            'PERMISSION_MISMATCH',
+            'NOTIFICATION_ISSUE',
+
+            'GENERAL_QUESTION',
+            'FEATURE_REQUEST',
+            'BUG_REPORT',
+            'OTHER');
+            CREATE TYPE ticket_status_enum AS ENUM ('OPEN', 'IN_PROGRESS', 'WAITING_FOR_USER','RESOLVED', 'CLOSED');
+        </sql>
+        <rollback>
+            <sql>
+                DROP TYPE issue_category_enum;
+                DROP TYPE issue_type_enum;
+                DROP TYPE ticket_status_enum;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="TK_116_Create_support_ticket_table" author="MANMEET_KAUR">
+        <createTable tableName="support_ticket">
+
+            <column name="ticket_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name= "member_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="first_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="last_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="email" type="VARCHAR(225)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="subject" type="VARCHAR(225)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="issue_category" type="issue_category_enum">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="issue_type" type="issue_type_enum">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="message" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="ticket_status" type="ticket_status_enum">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="support_ticket"
+                baseColumnNames="member_id"
+                constraintName="fk_member_id"
+                referencedTableName="boards_members"
+                referencedColumnNames="member_id"
+                onDelete="CASCADE"/>
+
+
+        <rollback>
+            <dropTable tableName="support_ticket"/>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>
