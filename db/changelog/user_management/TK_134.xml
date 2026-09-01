@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet id="TK_134_Create_Role_Enum_Type" author="Kirandeep Kaur">
+        <sql>CREATE TYPE member_role AS ENUM('OWNER','ADMIN','USER','VIEWER');</sql>
+
+        <rollback>
+            <sql>DROP TYPE IF EXISTS member_role;</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="TK_134_Add_Role_Column_To_Members" author="Kirandeep Kaur">
+        <addColumn tableName="members">
+            <column name="role" type="member_role">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <rollback>
+            <dropColumn tableName="members" columnName="role"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
