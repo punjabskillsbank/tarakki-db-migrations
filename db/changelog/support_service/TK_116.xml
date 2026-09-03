@@ -95,7 +95,7 @@
                 baseTableName="support_ticket"
                 baseColumnNames="member_id"
                 constraintName="fk_member_id"
-                referencedTableName="boards_members"
+                referencedTableName="members"
                 referencedColumnNames="member_id"
                 onDelete="CASCADE"/>
 

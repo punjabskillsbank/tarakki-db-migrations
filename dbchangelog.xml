@@ -14,4 +14,6 @@
     <include file="db/changelog/boards/TK_22_CREATE_TASKS_TABLE.xml"/> 
     <include file="/db/changelog/boards/TK_23_CREATE_COLUMNS_TABLE.xml"/>
     <include file="/db/changelog/boards/TK_27_CREATE_COLUMN_VALUES_TABLE.xml"/>
+    <include file="/db/changelog/support_service/TK_116.xml"/>
+
 </databaseChangeLog>
