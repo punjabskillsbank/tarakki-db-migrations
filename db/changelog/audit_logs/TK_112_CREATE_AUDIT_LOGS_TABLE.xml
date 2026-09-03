@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+            http://www.liquibase.org/xml/ns/dbchangelog
+            https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="TK_112_CREATE_AUDIT_LOGS_TABLE" author="Ishmeet Singh">
+
+        <!-- Create Audit Event Type Enum -->
+        <sql>
+            CREATE TYPE audit_event_type_enum AS ENUM (
+                'BOARD_UPDATED',
+                'BOARD_DELETED'
+            );
+        </sql>
+
+        <!-- Audit Logs Table -->
+        <createTable tableName="audit_logs">
+
+            <column name="event_id" type="BIGSERIAL">
+                <constraints primaryKey="true"
+                             primaryKeyName="pk_event_logs"
+                             nullable="false"/>
+            </column>
+
+            <column name="service_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="entity_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="entity_id" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="event_name" type="audit_event_type_enum">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="performed_by" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="old_value" type="JSONB"/>
+
+            <column name="new_value" type="JSONB"/>
+
+            <column name="event_time" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <rollback>
+
+            <dropTable tableName="audit_logs"/>
+
+            <sql>
+                DROP TYPE IF EXISTS audit_event_type_enum;
+            </sql>
+
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>
