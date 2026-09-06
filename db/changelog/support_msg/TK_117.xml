@@ -17,11 +17,11 @@
             </column>
 
             <column name= "support_id" type="UUID">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
 
             <column name= "user_id" type="UUID">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
 
             <column name="message_body" type="TEXT">
