@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="TK_117_support_message_table" author="MANMEET_KAUR">
+        <createTable tableName="support_message">
+
+            <column name="message_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name= "ticket_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name= "support_id" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name= "user_id" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="message_body" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="support_message"
+                baseColumnNames="ticket_id"
+                constraintName="fk_ticket_id"
+                referencedTableName="support_ticket"
+                referencedColumnNames="ticket_id"
+                onDelete="CASCADE"/>
+
+        <rollback>
+            <dropTable tableName="support_message"/>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>
