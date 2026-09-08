@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet id="TK_139_Support_Attachment" author="Manmeet Kaur">
+
+        <createTable tableName="support_attachment">
+            <column name="attachment_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="message_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="s3url" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="support_attachment"
+                baseColumnNames="message_id"
+                constraintName="fk_message_id"
+                referencedTableName="support_message"
+                referencedColumnNames="message_id"
+                onDelete="CASCADE"/>
+
+        <rollback>
+            <dropTable tableName="support_attachment"/>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>
+
