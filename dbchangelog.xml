@@ -17,4 +17,6 @@
     <include file="/db/changelog/support_service/TK_116.xml"/>
     <include file="/db/changelog/support_msg/TK_117.xml"/>
     <include file="/db/changelog/support_attachment/TK_139.xml"/>
+    <include file='db/changelog/audit_logs/TK_112_CREATE_AUDIT_LOGS_TABLE.xml'/>
+    <include file='db/changelog/audit_logs/TK_126_ALTER_AUDIT_LOGS_EVENT_NAME.xml'/>
 </databaseChangeLog>
