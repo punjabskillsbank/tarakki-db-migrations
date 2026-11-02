@@ -25,10 +25,14 @@
             </column>
 
             <column name="message_body" type="TEXT">
-                <constraints nullable="true"/>
+                <constraints nullable="false"/>
             </column>
 
             <column name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated_at" type="timestamp">
                 <constraints nullable="false"/>
             </column>
         </createTable>
