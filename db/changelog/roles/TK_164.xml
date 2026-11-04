@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet id="TK_164_01_Create_Roles_Table" author="dhruvjot-codes">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="roles"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="roles">
+            <column name="role_id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="role_name" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_roles_role_name"/>
+            </column>
+
+            <column name="role_description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <sql>
+            ALTER TABLE roles
+                ADD CONSTRAINT chk_roles_role_name_upper CHECK (role_name = upper(role_name));
+        </sql>
+
+        <rollback>
+            <dropTable tableName="roles"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="TK_164_02_Insert_Default_Roles" author="dhruvjot-codes">
+        <insert tableName="roles">
+            <column name="role_name" value="PLATFORM_ADMIN"/>
+            <column name="role_description" value="Full administrative access across the whole Tarakki platform"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="role_name" value="PLATFORM_MEMBER"/>
+            <column name="role_description" value="Standard registered user of the platform"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="role_name" value="ORG_OWNER"/>
+            <column name="role_description" value="Owner of an organization with full control, including deleting the organization and managing admins"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="role_name" value="ORG_ADMIN"/>
+            <column name="role_description" value="Manages organization settings and members"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="role_name" value="ORG_MEMBER"/>
+            <column name="role_description" value="Regular member of an organization"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="role_name" value="BOARD_ADMIN"/>
+            <column name="role_description" value="Manages a board, its members and its settings"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="role_name" value="BOARD_MEMBER"/>
+            <column name="role_description" value="Can view and edit board content"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="role_name" value="BOARD_VIEWER"/>
+            <column name="role_description" value="Read-only access to a board"/>
+        </insert>
+
+        <rollback>
+            <sql>
+                DELETE FROM roles WHERE role_name IN (
+                    'PLATFORM_ADMIN', 'PLATFORM_MEMBER', 'ORG_OWNER', 'ORG_ADMIN',
+                    'ORG_MEMBER', 'BOARD_ADMIN', 'BOARD_MEMBER', 'BOARD_VIEWER'
+                );
+            </sql>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
