@@ -29,5 +29,89 @@
         </rollback>
     </changeSet>
 
-</databaseChangeLog>
+    <changeSet id="TK_165_SEED_PERMISSIONS" author="Ishmeet Singh">
+        <sql>
+            INSERT INTO permissions (permission_name, permission_description) VALUES
+            ('CAN_READ_ANY_MEMBER_PROFILE', 'Can read any member profile'),
+            ('CAN_UPDATE_ANY_MEMBER_ACCOUNT', 'Can update any member account'),
+            ('CAN_LIST_ANY_MEMBER', 'Can list any member'),
+            ('CAN_REFRESH_SELF_AUTH_SESSION', 'Can refresh self auth session'),
+            ('CAN_REVOKE_SELF_AUTH_SESSION', 'Can revoke self auth session'),
+            ('CAN_CREATE_ORGANIZATION', 'Can create organization'),
+            ('CAN_READ_ORGANIZATION', 'Can read organization'),
+            ('CAN_UPDATE_ORGANIZATION', 'Can update organization'),
+            ('CAN_DELETE_ORGANIZATION', 'Can delete organization'),
+            ('CAN_LIST_ORGANIZATION_MEMBER', 'Can list organization member'),
+            ('CAN_READ_ORGANIZATION_MEMBER', 'Can read organization member'),
+            ('CAN_INVITE_ORGANIZATION_MEMBER', 'Can invite organization member'),
+            ('CAN_UPDATE_ORGANIZATION_MEMBER', 'Can update organization member'),
+            ('CAN_REMOVE_ORGANIZATION_MEMBER', 'Can remove organization member'),
+            ('CAN_ASSIGN_ORGANIZATION_ROLE', 'Can assign organization role'),
+            ('CAN_OVERVIEW_ORGANIZATION_ADMIN', 'Can overview organization admin'),
+            ('CAN_CREATE_BOARD', 'Can create board'),
+            ('CAN_READ_BOARD', 'Can read board'),
+            ('CAN_LIST_BOARD', 'Can list board'),
+            ('CAN_UPDATE_BOARD', 'Can update board'),
+            ('CAN_DELETE_BOARD', 'Can delete board'),
+            ('CAN_LIST_BOARD_MEMBER', 'Can list board member'),
+            ('CAN_READ_BOARD_MEMBER', 'Can read board member'),
+            ('CAN_ADD_BOARD_MEMBER', 'Can add board member'),
+            ('CAN_UPDATE_BOARD_MEMBER', 'Can update board member'),
+            ('CAN_REMOVE_BOARD_MEMBER', 'Can remove board member'),
+            ('CAN_ASSIGN_BOARD_ROLE', 'Can assign board role'),
+            ('CAN_CREATE_GROUP', 'Can create group'),
+            ('CAN_READ_GROUP', 'Can read group'),
+            ('CAN_UPDATE_GROUP', 'Can update group'),
+            ('CAN_DELETE_GROUP', 'Can delete group'),
+            ('CAN_CREATE_TASK', 'Can create task'),
+            ('CAN_READ_TASK', 'Can read task'),
+            ('CAN_UPDATE_TASK', 'Can update task'),
+            ('CAN_DELETE_TASK', 'Can delete task'),
+            ('CAN_ASSIGN_TASK', 'Can assign task')
+            ON CONFLICT (permission_name) DO NOTHING;
+        </sql>
+        <rollback>
+            <sql>
+                DELETE FROM permissions WHERE permission_name IN (
+                    'CAN_READ_ANY_MEMBER_PROFILE',
+                    'CAN_UPDATE_ANY_MEMBER_ACCOUNT',
+                    'CAN_LIST_ANY_MEMBER',
+                    'CAN_REFRESH_SELF_AUTH_SESSION',
+                    'CAN_REVOKE_SELF_AUTH_SESSION',
+                    'CAN_CREATE_ORGANIZATION',
+                    'CAN_READ_ORGANIZATION',
+                    'CAN_UPDATE_ORGANIZATION',
+                    'CAN_DELETE_ORGANIZATION',
+                    'CAN_LIST_ORGANIZATION_MEMBER',
+                    'CAN_READ_ORGANIZATION_MEMBER',
+                    'CAN_INVITE_ORGANIZATION_MEMBER',
+                    'CAN_UPDATE_ORGANIZATION_MEMBER',
+                    'CAN_REMOVE_ORGANIZATION_MEMBER',
+                    'CAN_ASSIGN_ORGANIZATION_ROLE',
+                    'CAN_OVERVIEW_ORGANIZATION_ADMIN',
+                    'CAN_CREATE_BOARD',
+                    'CAN_READ_BOARD',
+                    'CAN_LIST_BOARD',
+                    'CAN_UPDATE_BOARD',
+                    'CAN_DELETE_BOARD',
+                    'CAN_LIST_BOARD_MEMBER',
+                    'CAN_READ_BOARD_MEMBER',
+                    'CAN_ADD_BOARD_MEMBER',
+                    'CAN_UPDATE_BOARD_MEMBER',
+                    'CAN_REMOVE_BOARD_MEMBER',
+                    'CAN_ASSIGN_BOARD_ROLE',
+                    'CAN_CREATE_GROUP',
+                    'CAN_READ_GROUP',
+                    'CAN_UPDATE_GROUP',
+                    'CAN_DELETE_GROUP',
+                    'CAN_CREATE_TASK',
+                    'CAN_READ_TASK',
+                    'CAN_UPDATE_TASK',
+                    'CAN_DELETE_TASK',
+                    'CAN_ASSIGN_TASK'
+                );
+            </sql>
+        </rollback>
+    </changeSet>
 
+</databaseChangeLog>
