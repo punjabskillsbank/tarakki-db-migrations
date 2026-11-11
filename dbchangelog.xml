@@ -19,6 +19,6 @@
     <include file="/db/changelog/support_attachment/TK_139.xml"/>
     <include file='db/changelog/audit_logs/TK_112_CREATE_AUDIT_LOGS_TABLE.xml'/>
     <include file='db/changelog/audit_logs/TK_126_ALTER_AUDIT_LOGS_EVENT_NAME.xml'/>
-    <include file="db/changelog/permissions/TK_165_CREATE_PERMISSIONS_TABLE.xml"/>
-    <include file="db/changelog/roles/TK_164.xml"/>
+    <include file="db/changelog/auth/TK_165_CREATE_PERMISSIONS_TABLE.xml"/>
+    <include file="db/changelog/auth/TK_164.xml"/>
 </databaseChangeLog>
