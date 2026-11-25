@@ -7,7 +7,7 @@
 
     <changeSet id="TK_184_ADD_DESCRIPTION_TO_TASKS_TABLE" author="Ishmeet Singh">
         <addColumn tableName="tasks">
-            <column name="description" type="VARCHAR(500)" defaultValue="No description">
+            <column name="description" type="VARCHAR(500)">
                 <constraints nullable="false"/>
             </column>
         </addColumn>
