@@ -42,10 +42,6 @@
             <column name="role_description" value="Full administrative access across the whole Tarakki platform"/>
         </insert>
         <insert tableName="roles">
-            <column name="role_name" value="PLATFORM_MEMBER"/>
-            <column name="role_description" value="Standard registered user of the platform"/>
-        </insert>
-        <insert tableName="roles">
             <column name="role_name" value="ORG_OWNER"/>
             <column name="role_description" value="Owner of an organization with full control, including deleting the organization and managing admins"/>
         </insert>
@@ -73,7 +69,7 @@
         <rollback>
             <sql>
                 DELETE FROM roles WHERE role_name IN (
-                    'PLATFORM_ADMIN', 'PLATFORM_MEMBER', 'ORG_OWNER', 'ORG_ADMIN',
+                    'PLATFORM_ADMIN', 'ORG_OWNER', 'ORG_ADMIN',
                     'ORG_MEMBER', 'BOARD_ADMIN', 'BOARD_MEMBER', 'BOARD_VIEWER'
                 );
             </sql>

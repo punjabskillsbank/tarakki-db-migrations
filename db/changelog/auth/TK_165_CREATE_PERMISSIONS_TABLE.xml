@@ -33,7 +33,6 @@
         <sql>
             INSERT INTO permissions (permission_name, permission_description) VALUES
             ('CAN_READ_ANY_MEMBER_PROFILE', 'Can read any member profile'),
-            ('CAN_UPDATE_ANY_MEMBER_ACCOUNT', 'Can update any member account'),
             ('CAN_LIST_ANY_MEMBER', 'Can list any member'),
             ('CAN_REFRESH_SELF_AUTH_SESSION', 'Can refresh self auth session'),
             ('CAN_REVOKE_SELF_AUTH_SESSION', 'Can revoke self auth session'),
@@ -74,7 +73,6 @@
             <sql>
                 DELETE FROM permissions WHERE permission_name IN (
                     'CAN_READ_ANY_MEMBER_PROFILE',
-                    'CAN_UPDATE_ANY_MEMBER_ACCOUNT',
                     'CAN_LIST_ANY_MEMBER',
                     'CAN_REFRESH_SELF_AUTH_SESSION',
                     'CAN_REVOKE_SELF_AUTH_SESSION',
