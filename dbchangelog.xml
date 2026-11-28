@@ -22,4 +22,5 @@
     <include file="db/changelog/auth/TK_165_CREATE_PERMISSIONS_TABLE.xml"/>
     <include file="db/changelog/auth/TK_164.xml"/>
     <include file="db/changelog/auth/TK_166_ROLE_PERMISSIONS_TABLE.xml"/>
+    <include file="db/changelog/boards/TK_184_ADD_DESCRIPTION_TO_TASKS_TABLE.xml"/>
 </databaseChangeLog>
